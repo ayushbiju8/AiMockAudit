@@ -14,6 +14,8 @@ export function normalizeURL(url) {
   return url;
 }
 
+const random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
 export function runAudit(inputURL) {
   const url = normalizeURL(inputURL);
 
@@ -24,55 +26,62 @@ export function runAudit(inputURL) {
   let score = 100;
   const issues = [];
 
-  // Security check
   if (!url.startsWith("https://")) {
-    score -= 15;
-    issues.push("SSL Certificate warning: Insecure protocol detected");
+    const deduction = random(10, 20);
+    score -= deduction;
+    issues.push(`SSL Certificate warning: Insecure protocol detected (-${deduction})`);
   }
 
-  // Canonical check
-  if (url.length < 12) {
-    score -= 5;
-    issues.push("URL structure too short for optimal indexing");
+  if (url.length < 15) {
+    const deduction = random(3, 8);
+    score -= deduction;
+    issues.push(`URL structure too short for optimal indexing (-${deduction})`);
   }
 
-  // Structural checks
   const checks = [
     {
-      id: "schema",
-      message: "Missing JSON-LD or Microdata (Schema.org) for structured results",
-      points: 20,
+      message: "Missing JSON-LD or Microdata (Schema.org) modules",
+      min: 10,
+      max: 20,
     },
     {
-      id: "faq",
-      message: "No FAQ schema detected; missing rich snippet opportunities",
-      points: 15,
+      message: "No FAQ schema detected; missing rich snippet slots",
+      min: 5,
+      max: 15,
     },
     {
-      id: "headings",
-      message: "Improper heading hierarchy: Missing H1 or multiple H1 tags",
-      points: 10,
+      message: "Heading hierarchy failure: Multiple H1 tags or skip-levels",
+      min: 5,
+      max: 12,
     },
     {
-      id: "semantics",
-      message: "Low semantic HTML usage (excessive div-soup detected)",
-      points: 10,
+      message: "Semantic HTML debt: Excessive <div> nesting detected",
+      min: 5,
+      max: 10,
     },
+    {
+      message: "Missing ARIA descriptors in primary navigation nodes",
+      min: 4,
+      max: 8,
+    }
   ];
 
   checks.forEach((check) => {
-    // Simulating a real check that always fails for now
-    score -= check.points;
-    issues.push(check.message);
+    if (Math.random() > 0.3) {
+      const deduction = random(check.min, check.max);
+      score -= deduction;
+      issues.push(`${check.message} (-${deduction})`);
+    }
   });
 
-  score = Math.max(0, Math.min(100, score));
+  score = Math.max(5, Math.min(100, score));
 
   return { score, issues };
 }
 
 export async function runMockAudit(inputURL) {
-  // Simulate network latency
-  await new Promise((resolve) => setTimeout(resolve, 800));
+  await new Promise((resolve) => setTimeout(resolve, random(600, 1400)));
   return runAudit(inputURL);
-}
+}
+
+
