@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  --color-indigo-500: #6366f1;
+  --color-indigo-600: #4f46e5;
+}
+
+@layer base {
+  body {
+    @apply bg-black text-[#EDEDED] antialiased;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@layer components {
+  .bento-card {
+    @apply bg-[#0A0A0A] border border-[#1A1A1A] rounded-2xl transition-all duration-300;
+  }
+  .bento-card:hover {
+    @apply border-[#333] bg-[#0D0D0D];
+  }
+}
+
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.scan-line {
+  height: 100px;
+  background: linear-gradient(to bottom, transparent, rgba(99, 102, 241, 0.05), transparent);
+  width: 100%;
+  position: absolute;
+  animation: scan 3s linear infinite;
+}
