@@ -7,7 +7,7 @@ export default function Header() {
       </div>
       <div className="flex gap-6 text-[11px] font-medium text-[#666] uppercase tracking-widest">
         <span className="hover:text-white cursor-pointer transition">Documentation</span>
-        <span className="hover:text-white cursor-pointer transition">API Reference</span>
+        <span className="hover:text-white cursor-pointer transition">API</span>
       </div>
     </nav>
   );

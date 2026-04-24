@@ -14,8 +14,6 @@ STATUS: ${result.score > 60 ? "STABLE" : "FAIL"}
 
 OBSERVATIONS:
 ${result.issues.map((issue, i) => `${i + 1}. ${issue}`).join("\n")}
-
-Generated via AuditEngine v2.4
     `.trim();
 
     navigator.clipboard.writeText(report);
@@ -25,10 +23,9 @@ Generated via AuditEngine v2.4
 
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      
-      {/* Utilities Header */}
+
       <div className="flex justify-end">
-        <button 
+        <button
           onClick={copyReport}
           className="group flex items-center gap-2 px-4 py-2 bg-[#0A0A0A] border border-[#1A1A1A] rounded-lg hover:border-[#333] transition-all"
         >
@@ -40,22 +37,22 @@ Generated via AuditEngine v2.4
       </div>
 
       <div className="grid grid-cols-12 gap-6">
-        
+
         <ScoreCard score={result.score} />
 
         <div className="col-span-12 lg:col-span-8 grid grid-cols-2 gap-6">
           <div className="col-span-2 bento-card p-8 space-y-4">
             <div className="text-[10px] font-black text-[#444] uppercase tracking-[0.3em]">Technical Overview</div>
             <p className="text-[#AAA] leading-relaxed">
-              {result.score > 70 
+              {result.score > 70
                 ? "DOM structure is highly optimized. Crawler algorithms can efficiently map resource relationships and index primary content nodes with high accuracy."
                 : result.score > 40
-                ? "Optimization flags detected in the rendering pipeline. Missing schema metadata and improper heading nesting are hindering full structural parsing."
-                : "Critical architectural barriers found. The current DOM tree is opaque to automated indexing protocols and requires immediate semantic refactoring."
+                  ? "Optimization flags detected in the rendering pipeline. Missing schema metadata and improper heading nesting are hindering full structural parsing."
+                  : "Critical architectural barriers found. The current DOM tree is opaque to automated indexing protocols and requires immediate semantic refactoring."
               }
             </p>
           </div>
-          
+
           <div className="bento-card p-6 flex flex-col justify-between">
             <div className="text-[10px] font-black text-[#444] uppercase tracking-[0.3em]">Indexability</div>
             <div className="text-3xl font-bold mt-4">{result.score > 60 ? "STABLE" : "FAIL"}</div>
